@@ -126,8 +126,21 @@ main {
 
 }
   
- #accuracy {
+#accuracy {
     color: #cc0000;
     font-size: 0.7rem;
     padding-left: 5px;
+}
+
+#mistakes {
+    color: #2507e8;
+    font-size: 0.7rem;
+    padding-left: 5px;
+}
+
+#replay-btn {
+    color: rgb(255, 255, 255);
+    background-color: black;
+    font-size: xx-large;
+    font-family: 'PressStart2P';
 }
