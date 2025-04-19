@@ -116,6 +116,8 @@ const highlightNextWord = () => {
       wordElements[currentWordIndex - 1].style.color = "#f4f4f9";
     }
     wordElements[currentWordIndex].style.color = "black";
+  }else if (currentWordIndex === wordElements.length) {
+    wordElements[currentWordIndex - 1].style.color = "#f4f4f9";
   }
 };
 
