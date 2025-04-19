@@ -4,6 +4,9 @@ const wordsToType = [];
 let totalTypedChars = 0;
 let totalCorrectChars = 0;
 let mistakeCount = 0;
+let timeLeft = 60;
+let timerInterval = null;
+let timerStarted = false;
 
 const modeSelect = document.getElementById("mode");
 const wordDisplay = document.getElementById("word-display");
@@ -12,7 +15,8 @@ const results = document.getElementById("results");
 const wpmDisplay = document.getElementById("wpm");
 const accuracyDisplay = document.getElementById("accuracy");
 const mistakeDisplay = document.getElementById("mistakes");
-const replayButton = document.getElementById("replay-btn"); 
+const replayButton = document.getElementById("replay-btn");
+const timerDisplay = document.getElementById("timer");
 
 const words = {
   easy: [
@@ -34,6 +38,24 @@ const words = {
 const getRandomWord = (mode) => {
   const wordList = words[mode];
   return wordList[Math.floor(Math.random() * wordList.length)];
+};
+
+const startCountdown = () => {
+  timeLeft = 60;
+  timerDisplay.textContent = `Time: ${timeLeft}s`;
+
+  if (timerInterval) clearInterval(timerInterval);
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerDisplay.textContent = `Time: ${timeLeft}s`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      inputField.disabled = true;
+      results.style.display = "block";
+    }
+  }, 1000);
 };
 
 const startTest = (wordCount = 50) => {
@@ -62,9 +84,17 @@ const startTest = (wordCount = 50) => {
   });
 
   inputField.value = "";
+  inputField.disabled = false;
+  results.style.display = "none";
+  timerStarted = false;
 };
 
 const startTimer = () => {
+  if (!timerStarted) {
+    startCountdown();
+    timerStarted = true;
+  }
+
   if (!startTime) startTime = Date.now();
 };
 
@@ -116,7 +146,7 @@ const highlightNextWord = () => {
       wordElements[currentWordIndex - 1].style.color = "#f4f4f9";
     }
     wordElements[currentWordIndex].style.color = "black";
-  }else if (currentWordIndex === wordElements.length) {
+  } else if (currentWordIndex === wordElements.length) {
     wordElements[currentWordIndex - 1].style.color = "#f4f4f9";
   }
 };
