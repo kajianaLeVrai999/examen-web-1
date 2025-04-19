@@ -47,14 +47,15 @@ main {
     align-items: center;
     justify-content: center;
     padding: 2rem;
-    width: 100%;
-    max-width: 600px;
+    width: 95%;
+    position: relative;
 }
 
 #word-display {
     font-size: 1rem;
     word-spacing: 5px;
     line-height: 1.5;
+    color: rgb(91, 86, 86);
 }
 
 .input-div {
@@ -92,9 +93,41 @@ main {
     border: 3.5px solid #333;
     background-color: rgba(255, 255, 255, 0.1);
     margin-bottom: 1rem;
-    width: 120%;  
+    width: 60%;
 }
 
 .separation{
     border:2px solid #333 ;
+}
+
+.stats-column {
+    width: 200px;
+    background-color: #f7f7f7;
+    padding: 15px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: 3.5px solid #333;
+
+}
+  
+.stats-column h3 {
+    margin-top: 0;
+    font-size: 18px;
+    border-bottom: 3.5px solid #333;
+    padding-bottom: 8px;
+    margin-right: 5px;
+}
+  
+#wpm {
+    color: #01762a;
+    font-size: 0.7rem;
+    padding-left: 5px;
+
+}
+  
+ #accuracy {
+    color: #cc0000;
+    font-size: 0.7rem;
+    padding-left: 5px;
 }
