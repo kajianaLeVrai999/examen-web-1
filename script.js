@@ -8,6 +8,8 @@
 let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
 const wordsToType = [];
+let totalTypedChars = 0;
+let totalCorrectChars = 0;
 
 const modeSelect = document.getElementById("mode");
 const wordDisplay = document.getElementById("word-display");
@@ -33,6 +35,8 @@ const startTest = (wordCount = 50) => {
     currentWordIndex = 0;
     startTime = null;
     previousEndTime = null;
+    totalTypedChars = 0;
+    totalCorrectChars = 0;
 
     for (let i = 0; i < wordCount; i++) {
         wordsToType.push(getRandomWord(modeSelect.value));
@@ -58,27 +62,42 @@ const startTimer = () => {
 const getCurrentStats = () => {
     const elapsedTime = (Date.now() - previousEndTime) / 1000; // Seconds
     const wpm = (wordsToType[currentWordIndex].length / 5) / (elapsedTime / 60); // 5 chars = 1 word
-    const accuracy = (wordsToType[currentWordIndex].length / inputField.value.length) * 100;
+
+    const typed = inputField.value.trim();
+    const expected = wordsToType[currentWordIndex];
+
+    totalTypedChars += typed.length;
+
+    for (let i = 0; i < Math.min(typed.length, expected.length); i++) {
+        if (typed[i] === expected[i]) totalCorrectChars++;
+    }
+
+    const accuracy = (totalCorrectChars / totalTypedChars) * 100;
 
     return { wpm: wpm.toFixed(2), accuracy: accuracy.toFixed(2) };
 };
 
 // Move to the next word and update stats only on spacebar press
 const updateWord = (event) => {
-    if (event.key === " ") { // Check if spacebar is pressed
-        if (inputField.value.trim() === wordsToType[currentWordIndex]) {
-            if (!previousEndTime) previousEndTime = startTime;
+    if (event.key === " ") {
+        const typed = inputField.value.trim();
+        const expected = wordsToType[currentWordIndex];
+        if (!previousEndTime) previousEndTime = startTime;
 
-            const { wpm, accuracy } = getCurrentStats();
-            results.textContent = `WPM: ${wpm}, Accuracy: ${accuracy}%`;
+        totalTypedChars += typed.length;
+        for (let i = 0; i < Math.min(typed.length, expected.length); i++) {
+            if (typed[i] === expected[i]) totalCorrectChars++;
+        }
+        const { wpm, accuracy } = getCurrentStats();
+        results.textContent = `WPM: ${wpm}, Accuracy: ${accuracy}%`;
 
+        if (typed === expected) {
             currentWordIndex++;
             previousEndTime = Date.now();
             highlightNextWord();
-
-            inputField.value = ""; // Clear input field after space
-            event.preventDefault(); // Prevent adding extra spaces
         }
+        inputField.value = "";
+        event.preventDefault();
     }
 };
 
