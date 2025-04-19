@@ -121,20 +121,20 @@ main {
   
 #wpm {
     color: #01762a;
-    font-size: 0.7rem;
+    font-size: 0.5rem;
     padding-left: 5px;
 
 }
   
 #accuracy {
     color: #cc0000;
-    font-size: 0.7rem;
+    font-size: 0.5rem;
     padding-left: 5px;
 }
 
 #mistakes {
     color: #2507e8;
-    font-size: 0.7rem;
+    font-size: 0.5rem;
     padding-left: 5px;
 }
 
@@ -143,4 +143,9 @@ main {
     background-color: black;
     font-size: xx-large;
     font-family: 'PressStart2P';
+}
+
+#timer {
+   margin-top: 20px;
+   font-size: medium;
 }
