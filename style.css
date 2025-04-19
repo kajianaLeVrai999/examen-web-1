@@ -48,7 +48,7 @@ main {
 }
 
 #word-display {
-    font-size: 3rem;
+    font-size: 1.5rem;
 }
 
 #input-field {
@@ -76,10 +76,6 @@ main {
     padding: 2rem;
     border-radius: 15px;
     margin-bottom: 2rem;
-    width: 100%;
-    max-width: 800px;
-    text-align: center;
-    font-weight: bold;
-    text-align: center;  
+    width: 70% ;  
 }
 
