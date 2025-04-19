@@ -159,7 +159,9 @@ inputField.addEventListener("keydown", (event) => {
 modeSelect.addEventListener("change", () => startTest());
 
 replayButton.addEventListener("click", () => {
-  startTest();
+  clearInterval(timerInterval); 
+  timerStarted = false;         
+  startTest();                 
 });
 
 startTest();
